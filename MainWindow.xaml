@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Company"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Company" Height="450" Width="800">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" Grid.Column="0" Margin="10"  HorizontalGridLinesBrush="DarkGray" SelectedItem="{Binding SelectedPerson}" 
+    RowBackground="LightGray" AlternatingRowBackground="White" AutoGenerateColumns="False"  ItemsSource="{Binding Path=People}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="90" />
+                <DataGridHyperlinkColumn Header="Имя" Binding="{Binding Path=FirstName}" Width="80" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=LastName}" Width="80" />
+                <DataGridTextColumn Header="Дата приема" Binding="{Binding Path=DateOfEmployment}" Width="80" />
+                <DataGridTextColumn Header="Заработная плата" Binding="{Binding Path=Salary}" Width="80" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Grid.Row="1" Grid.Column="0"  Margin="10" AutoGenerateColumns="True" ItemsSource="{Binding Subordinates}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="90" />
+                <DataGridHyperlinkColumn Header="Имя" Binding="{Binding Path=FirstName}" Width="80" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=LastName}" Width="100" />
+                <DataGridTextColumn Header="Дата приема" Binding="{Binding Path=DateOfEmployment}" Width="100" />
+                <DataGridTextColumn Header="Заработная плата" Binding="{Binding Path=Salary}" Width="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+            <Button Content="Добавить" Margin="20" Width="100" Command="{Binding AddCommand}"/>
+            <Button Content="Удалить" Width="100"/>
+            <Button Content="Рассчитать заработную плату на дату" Margin="0,20,0,0" Width="150" Command="{Binding CalculateSalary}"/>
+            <DatePicker SelectedDate="{Binding CulcDate}"/>
+        </StackPanel>
     </Grid>
 </Window>
